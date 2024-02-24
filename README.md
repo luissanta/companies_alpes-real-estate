@@ -34,7 +34,7 @@ This is automatically generated and can be accessed via `http://0.0.0.0:8008/doc
 1. Modify the file name `.env.example`, should stay with the name `.env`
 2. Modify the file name `alembic.ini.example`, should stay with the name `alembic.ini`
 3. Modify the `.env` y `alembic.ini` file with the credentials of the environment to run
-4. Create docker image and container with command `uvicorn --host 0.0.0.0 --port 8008 app.main:app`
+4. Start app with command `uvicorn --host 0.0.0.0 --port 8008 app.main:app`
 5. The project is accessible in the port http://127.0.0.1:8008
 
 
