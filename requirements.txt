@@ -1,0 +1,15 @@
+fastapi==0.109.2
+uvicorn[standard]
+python-dotenv
+pydantic==2.3.0
+python-multipart==0.0.9
+sqlalchemy==2.0.20
+psycopg2-binary
+pytest
+httpx
+bcrypt
+pytest-cov
+email-validator
+python-jose
+requests
+sqlalchemy-pagination
