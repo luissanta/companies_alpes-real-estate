@@ -1,4 +1,4 @@
-"""Entidades del dominio de vuelos
+"""Entidades del dominio de lists
 
 En este archivo usted encontrará las entidades del dominio de vuelos
 """
