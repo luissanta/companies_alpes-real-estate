@@ -12,21 +12,13 @@ class Setting:
     SECRET_KEY: str = os.getenv("SECRET_KEY", "secret")
     ENV: str = os.getenv("ENV", "local")
 
-    READ_DB_USER: str = os.getenv("READ_DB_USER")
-    READ_DB_PASSWORD: str = os.getenv("READ_DB_PASSWORD")
-    READ_DB_HOST: str = os.getenv("READ_DB_HOST", "localhost")
-    READ_DB_PORT: str = os.getenv("READ_DB_PORT", 5432)
-    READ_DB_NAME: str = os.getenv("READ_DB_NAME")
-    READ_DATABASE_URL = f"{DB_ENGINE}://{READ_DB_USER}:{READ_DB_PASSWORD}@{READ_DB_HOST}:" \
-                        f"{READ_DB_PORT}/{READ_DB_NAME}"
-
-    WRITE_DB_USER: str = os.getenv("WRITE_DB_USER")
-    WRITE_DB_PASSWORD = os.getenv("WRITE_DB_PASSWORD")
-    WRITE_DB_HOST: str = os.getenv("WRITE_DB_HOST", "localhost")
-    WRITE_DB_PORT: str = os.getenv("WRITE_DB_PORT", 5432)
-    WRITE_DB_NAME: str = os.getenv("WRITE_DB_NAME")
-    WRITE_DATABASE_URL = f"{DB_ENGINE}://{WRITE_DB_USER}:{WRITE_DB_PASSWORD}@{WRITE_DB_HOST}:" \
-                         f"{WRITE_DB_PORT}/{WRITE_DB_NAME}"
+    DB_USER: str = os.getenv("DB_USER")
+    DB_PASSWORD: str = os.getenv("DB_PASSWORD")
+    DB_HOST: str = os.getenv("DB_HOST", "localhost")
+    DB_PORT: str = os.getenv("DB_PORT", 5432)
+    DB_NAME: str = os.getenv("DB_NAME")
+    DATABASE_URL = f"{DB_ENGINE}://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:" \
+                   f"{DB_PORT}/{DB_NAME}"
 
 
 settings = Setting
