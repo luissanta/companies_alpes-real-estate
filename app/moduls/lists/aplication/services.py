@@ -1,5 +1,5 @@
 from app.seedwork.aplication.services import Service
-from .dto import ListDTO
+from ..aplication.dto import ListDTO
 from app.moduls.lists.domain.factories import ListFactory
 from app.moduls.lists.infrastructure.factories import RepositoryFactory
 from ..domain.repositories import ListRepository

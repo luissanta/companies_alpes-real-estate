@@ -36,7 +36,7 @@ class Mapper(ABC):
         ...
 
     @abstractmethod
-    def entity_to__dto(self, entidad: Entity) -> any:
+    def entity_to_dto(self, entity: Entity) -> any:
         ...
 
     @abstractmethod
