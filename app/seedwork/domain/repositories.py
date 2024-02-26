@@ -5,40 +5,40 @@ reusables parte del seedwork del proyecto
 """
 
 from abc import ABC, abstractmethod
-from uuid import UUID
 from .entities import Entity
 
-class Repositorio(ABC):
+
+class Repository(ABC):
     @abstractmethod
-    def obtener_por_id(self, id: UUID) -> Entity:
+    def get_by_id(self, entity_id: int) -> Entity:
         ...
 
     @abstractmethod
-    def obtener_todos(self) -> list[Entity]:
+    def get_all(self) -> list[Entity]:
         ...
 
     @abstractmethod
-    def agregar(self, entity: Entity):
+    def create(self, entity: Entity):
         ...
 
     @abstractmethod
-    def actualizar(self, entity: Entity):
+    def update(self, entity_id: int, entity: Entity):
         ...
 
     @abstractmethod
-    def eliminar(self, entity_id: UUID):
+    def delete(self, entity_id: int):
         ...
 
 
 class Mapper(ABC):
     @abstractmethod
-    def obtener_tipo(self) -> type:
+    def get_type(self) -> type:
         ...
 
     @abstractmethod
-    def entidad_a_dto(self, entidad: Entity) -> any:
+    def entity_to__dto(self, entidad: Entity) -> any:
         ...
 
     @abstractmethod
-    def dto_a_entidad(self, dto: any) -> Entity:
+    def dto_to_entity(self, dto: any) -> Entity:
         ...

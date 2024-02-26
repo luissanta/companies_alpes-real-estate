@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from app.seedwork.aplication.dto import DTO
 
+
 @dataclass(frozen=True)
 class ListDTO(DTO):
     code: str = field(default_factory=str)

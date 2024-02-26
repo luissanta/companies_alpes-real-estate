@@ -1,15 +1,17 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
+
 @dataclass(frozen=True)
-class DTO():
+class DTO:
     ...
 
-class Mapeador(ABC):
+
+class Mapper(ABC):
     @abstractmethod
-    def externo_a_dto(self, externo: any) -> DTO:
+    def external_to_dto(self, externo: any) -> DTO:
         ...
 
     @abstractmethod
-    def dto_a_externo(self, dto: DTO) -> any:
+    def dto_to_external(self, dto: DTO) -> any:
         ...

@@ -1,33 +1,24 @@
-#from aeroalpes.seedwork.aplicacion.servicios import Servicio
-#from aeroalpes.modulos.vuelos.dominio.entidades import Reserva
-#from aeroalpes.modulos.vuelos.dominio.fabricas import FabricaVuelos
-#from aeroalpes.modulos.vuelos.infraestructura.fabricas import FabricaRepositorio
-#from aeroalpes.modulos.vuelos.infraestructura.repositorios import RepositorioReservas
-#from .mapeadores import MapeadorReserva
-
-#from .dto import ReservaDTO
-
+from app.seedwork.aplication.services import Service
 from .dto import ListDTO
-from app.moduls.lists.domain.factories import FabricaListados
+from app.moduls.lists.domain.factories import ListFactory
 from app.moduls.lists.infrastructure.factories import RepositoryFactory
-from app.seedwork.aplication.services import Servicio
-from app.moduls.lists.infrastructure.repositories import RepositorioListado
+from ..domain.repositories import ListRepository
 
-class ServicioListado(Servicio):
+
+class ListService(Service):
 
     def __init__(self):
-        self._fabrica_repositorio: RepositoryFactory = RepositoryFactory()
-        self._fabrica_listados: FabricaListados = FabricaListados()
+        self._repository_factory: RepositoryFactory = RepositoryFactory()
+        self._list_factories: ListFactory = ListFactory()
 
     @property
-    def fabrica_repositorio(self):
-        return self._fabrica_repositorio
-    
-    @property
-    def fabrica_listados(self):
-        return self._fabrica_listados
+    def repository_factory(self):
+        return self._repository_factory
 
-    def obtener_listado_por_id(self, id) -> ListDTO:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioListado.__class__)
-        return repositorio.obtener_todos()#.__dict__
-    
+    @property
+    def list_factory(self):
+        return self._list_factories
+
+    def get_list_by_id(self, id) -> ListDTO:
+        repository = self.repository_factory.create_object(ListRepository.__class__)
+        return repository.get_all()

@@ -1,40 +1,35 @@
 """ Fábricas para la creación de objetos del dominio de vuelos
 
 En este archivo usted encontrará las diferentes fábricas para crear
-objetos complejos del dominio de vuelos
-
+objetos complejos del dominio de lists
 """
 
-from app.moduls.lists.domain.exceptions import TipoObjetoNoExisteEnDominioPropiedadesExcepcion
-
-from app.moduls.lists.domain.rules import MinimoUnaPropiedad
+from app.moduls.lists.domain.exceptions import ObjectTypeNotExistInEstatesDomainException
+from app.moduls.lists.domain.rules import EstateMinOne
 from app.seedwork.domain.repositories import Mapper
 from .entities import Estate, Entity
-#from .reglas import MinimoUnItinerario, RutaValida
-#from .excepciones import TipoObjetoNoExisteEnDominioVuelosExcepcion
-#from aeroalpes.seedwork.dominio.repositorios import Mapeador, Repositorio
-#from aeroalpes.seedwork.dominio.fabricas import Fabrica
-#from aeroalpes.seedwork.dominio.entidades import Entidad
 from dataclasses import dataclass
 from app.seedwork.domain.factories import Factory
 
+
 @dataclass
 class _FabricaListado(Factory):
-    def crear_objeto(self, obj: any, mapeador: Mapper) -> any:
+    def crear_objeto(self, obj: any, mapper: Mapper) -> any:
         if isinstance(obj, Entity):
-            return mapeador.entidad_a_dto(obj)
+            return mapper.entity_to__dto(obj)
         else:
-            reserva: list = mapeador.dto_a_entidad(obj)
+            reserva: list = mapper.dto_to_entity(obj)
 
-            self.validar_regla(MinimoUnaPropiedad(Estate.code))
-                       
+            self.validate_rule(EstateMinOne(Estate.code))
+
             return reserva
 
+
 @dataclass
-class FabricaListados(Factory):
-    def crear_objeto(self, obj: any, mapeador: Mapper) -> any:
-        if mapeador.obtener_tipo() == Estate.__class__:
+class ListFactory(Factory):
+    def create_object(self, obj: any, mapper: Mapper) -> any:
+        if mapper.get_type() == Estate.__class__:
             fabrica_reserva = _FabricaListado()
-            return fabrica_reserva.build_object(obj, mapeador)
+            return fabrica_reserva.build_object(obj, mapper)
         else:
-            raise TipoObjetoNoExisteEnDominioPropiedadesExcepcion()
+            raise ObjectTypeNotExistInEstatesDomainException()

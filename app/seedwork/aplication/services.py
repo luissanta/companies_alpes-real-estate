@@ -1,2 +1,2 @@
-class Servicio:
+class Service:
     ...
