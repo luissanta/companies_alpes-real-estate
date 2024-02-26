@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter
 from app.moduls.lists.aplication.services import ListService
 
 list_router = APIRouter(
@@ -6,7 +6,7 @@ list_router = APIRouter(
 )
 
 
-@list_router.get("/list", status_code=status.HTTP_200_OK)
+@list_router.get("/list")
 async def get_list():
-    sr = ListService()
-    return sr.get_list_by_id(id)
+    list_service = ListService()
+    return list_service.get_all_list()

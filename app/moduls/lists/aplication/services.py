@@ -19,6 +19,6 @@ class ListService(Service):
     def list_factory(self):
         return self._list_factories
 
-    def get_list_by_id(self, id) -> ListDTO:
+    def get_all_list(self) -> ListDTO:
         repository = self.repository_factory.create_object(ListRepository.__class__)
         return repository.get_all()

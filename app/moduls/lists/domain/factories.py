@@ -13,23 +13,23 @@ from app.seedwork.domain.factories import Factory
 
 
 @dataclass
-class _FabricaListado(Factory):
-    def crear_objeto(self, obj: any, mapper: Mapper) -> any:
+class _ListFactory(Factory):
+    def create_object(self, obj: any, mapper: Mapper = None) -> any:
         if isinstance(obj, Entity):
             return mapper.entity_to__dto(obj)
         else:
-            reserva: list = mapper.dto_to_entity(obj)
+            _list = mapper.dto_to_entity(obj)
 
             self.validate_rule(EstateMinOne(Estate.code))
 
-            return reserva
+            return _list
 
 
 @dataclass
 class ListFactory(Factory):
-    def create_object(self, obj: any, mapper: Mapper) -> any:
+    def create_object(self, obj: any, mapper: Mapper = None) -> any:
         if mapper.get_type() == Estate.__class__:
-            fabrica_reserva = _FabricaListado()
+            fabrica_reserva = _ListFactory()
             return fabrica_reserva.build_object(obj, mapper)
         else:
             raise ObjectTypeNotExistInEstatesDomainException()

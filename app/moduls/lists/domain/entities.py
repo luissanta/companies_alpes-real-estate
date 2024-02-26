@@ -1,6 +1,6 @@
 """Entidades del dominio de lists
 
-En este archivo usted encontrará las entidades del dominio de vuelos
+En este archivo usted encontrará las entidades del dominio de lists
 """
 
 from __future__ import annotations

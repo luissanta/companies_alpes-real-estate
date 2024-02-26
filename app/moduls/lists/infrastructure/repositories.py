@@ -5,22 +5,22 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 """
 
 from app.config.db import SessionLocal
-from .dto import Listado as ListadoDTO
-from app.moduls.lists.domain.entities import List
+from .dto import List
+from ..aplication.dto import ListDTO
 from ..domain.repositories import ListRepository
 
 
 class EstateRepositoryPostgres(ListRepository):
 
-    def get_by_id(self, id: int) -> List:
+    def get_by_id(self, entity_id: int) -> List:
         # TODO
         raise NotImplementedError
 
-    def get_all(self) -> list[List]:
-        session = SessionLocal()
-        reserva_dto = session.query(ListadoDTO).all()
+    def get_all(self) -> list[ListDTO]:
+        db = SessionLocal()
+        reserva_dto = db.query(List).all()
         estate_list = [List(id=item.id, code=item.code, name=item.name) for item in reserva_dto]
-        return [estate_list]
+        return estate_list
 
     def create(self, entity: List):
         # TODO

@@ -8,7 +8,7 @@ from app.config.db import Base, engine
 from sqlalchemy import Column, String
 
 
-class Listado(Base):
+class List(Base):
     __tablename__ = "list"
     id = Column(String, primary_key=True)
     code = Column(String, nullable=False)

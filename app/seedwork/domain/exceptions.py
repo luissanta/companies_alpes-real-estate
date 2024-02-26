@@ -10,14 +10,6 @@ class DomainException(Exception):
     ...
 
 
-class IdMustBeInmutableException(DomainException):
-    def __init__(self, message='El identificador debe ser inmutable'):
-        self.__message = message
-
-    def __str__(self):
-        return str(self.__message)
-
-
 class BusinessRuleException(DomainException):
     def __init__(self, rule: BusinessRule):
         self.rule = rule

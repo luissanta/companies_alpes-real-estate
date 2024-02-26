@@ -9,6 +9,7 @@ from .exceptions import BusinessRuleException
 
 
 class ValidateRulesMixin:
-    def validate_rule(self, rule: BusinessRule):
+    @staticmethod
+    def validate_rule(rule: BusinessRule):
         if not rule.is_valid():
             raise BusinessRuleException(rule)
