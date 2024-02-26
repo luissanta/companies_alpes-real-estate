@@ -28,9 +28,13 @@ class RepositorioPropiedadesSQLite(RepositorioListado):
     def obtener_todos(self) -> list[List]:
         session = SessionLocal()
         reserva_dto = session.query(ListadoDTO).all()
+        #Quiero crear un mapeador del objeto ListDTO al objeto List
+        estate_list = [List(id=item.id, code=item.code, name=item.name) for item in reserva_dto]
+
+
         #falta mapear Revisar.........
-        temp = len(reserva_dto)
-        estate_list = List(id=1,estate_id=temp, code="1", name="List 1")
+        #temp = len(reserva_dto)
+        #estate_list = List(id=1,estate_id=temp, code="1", name="List 1")
         return [estate_list]
 
     def agregar(self, entity: List):
