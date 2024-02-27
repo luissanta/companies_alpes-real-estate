@@ -1,12 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, status
 from app.moduls.lists.aplication.services import ListService
+from app.moduls.lists.aplication.mappers import MapeadorEstateDTOJson as MapApp
 
 list_router = APIRouter(
     tags=["list"]
 )
 
 
-@list_router.get("/list")
+@list_router.get("/list", status_code=status.HTTP_200_OK)
 async def get_list():
-    list_service = ListService()
-    return list_service.get_all_list()
+    map_estates = MapApp()
+    sr = ListService()
+    return map_estates.dto_to_external(sr.get_all_list())

@@ -20,7 +20,7 @@ class _ListFactory(Factory):
         else:
             _list = mapper.dto_to_entity(obj)
 
-            self.validate_rule(EstateMinOne(Estate.code))
+            #self.validate_rule(EstateMinOne(Estate.code))
 
             return _list
 
@@ -30,6 +30,6 @@ class ListFactory(Factory):
     def create_object(self, obj: any, mapper: Mapper = None) -> any:
         if mapper.get_type() == Estate.__class__:
             fabrica_reserva = _ListFactory()
-            return fabrica_reserva.build_object(obj, mapper)
+            return fabrica_reserva.create_object(obj, mapper)
         else:
             raise ObjectTypeNotExistInEstatesDomainException()

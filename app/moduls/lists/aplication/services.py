@@ -3,7 +3,7 @@ from ..aplication.dto import ListDTO
 from app.moduls.lists.domain.factories import ListFactory
 from app.moduls.lists.infrastructure.factories import RepositoryFactory
 from ..domain.repositories import ListRepository
-
+from .mappers import MapeadorEstate
 
 class ListService(Service):
 
@@ -21,4 +21,5 @@ class ListService(Service):
 
     def get_all_list(self) -> ListDTO:
         repository = self.repository_factory.create_object(ListRepository.__class__)
-        return repository.get_all()
+        
+        return self.list_factory.create_object(repository.get_all(), MapeadorEstate())
