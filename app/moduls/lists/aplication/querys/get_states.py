@@ -7,16 +7,17 @@ from app.moduls.lists.aplication.mappers import MapeadorEstate
 import uuid
 
 @dataclass
-class ObtenerReserva(Query):
+class GetEstate(Query):
     id: str
 
 class getEstatesHandler(ReservaQueryBaseHandler):
-    def handle(self, query: ObtenerReserva) -> QueryResultado:
+    def handle(self, query: GetEstate
+) -> QueryResultado:
         repositorio = self._repository_factory.create_object(ListRepository.__class__)
-        reserva =  self._list_factories.create_object(repositorio.obtener_por_id(query.id), MapeadorEstate())
+        reserva =  self._list_factories.create_object(repositorio.get_all(), MapeadorEstate())
         return QueryResultado(resultado=reserva)
 
-@query.register(ObtenerReserva)
-def ejecutar_query_obtener_reserva(query: ObtenerReserva):
+@query.register(GetEstate)
+def ejecutar_query_obtener_reserva(query: GetEstate):
     handler = getEstatesHandler()
     return handler.handle(query)
