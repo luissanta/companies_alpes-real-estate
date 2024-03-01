@@ -13,7 +13,8 @@ class MapeadorEstateDTOJson(AppMap):
         return estate_dto
     
     def external_to_dto(self, externo: dict) -> EstateDTO:
-        estate_dto: EstateDTO = EstateDTO(externo.get('id'), externo.get('code'), externo.get('name')) 
+        print("Externo - ", externo)
+        estate_dto: EstateDTO = EstateDTO(id=externo.get('id'), code=externo.get('code'), name=externo.get('name')) 
         return estate_dto
 
     def dto_to_external(self, dto: EstateDTO) -> dict:
@@ -36,5 +37,5 @@ class MapeadorEstate(RepMap):
         print("dto_to_entity")
         print(dto)
 
-        return [Estate(code= dto.code, name= dto.name) for dto in dto]
+        return Estate(id=dto.id ,code= dto.code, name= dto.name) #[for dto in dto]
     

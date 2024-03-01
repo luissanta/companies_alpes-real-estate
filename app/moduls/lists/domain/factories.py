@@ -29,7 +29,7 @@ class _ListFactory(Factory):
 class ListFactory(Factory):
     def create_object(self, obj: any, mapper: Mapper = None) -> any:
         if mapper.get_type() == Estate.__class__:
-            fabrica_reserva = _ListFactory()
-            return fabrica_reserva.create_object(obj, mapper)
+            list_factory = _ListFactory()
+            return list_factory.create_object(obj, mapper)
         else:
             raise ObjectTypeNotExistInEstatesDomainException()
