@@ -15,25 +15,20 @@ class Estate(Entity):
     id: int = field(default=None)
     code: str = field(default_factory=str)
     name: str = field(default_factory=str)
-    #createdAt: str = field(default_factory=str)
-    #updatedAt: str = field(default_factory=str)
-
-    def create_estate(self, estate: Estate):
-        self.id = estate.id
-        self.code = estate.code
-        self.name = estate.name
+    createdAt: str = field(default_factory=str)
+    updatedAt: str = field(default_factory=str)
 
 @dataclass
-class List(RootAggregation):
-    #estate_id: int = field(hash=True, default=None)
-    #estates: list[Estate] = field(default_factory=list)
-    estate: Estate = field(default_factory=Estate)
+class List_estates(RootAggregation):
+    estates: list[Estate] = field(default_factory=list)
 
-    def create_estate(self, estate: Estate):
-        self.estate.id = estate.id
-        self.estate.code = estate.code
-        self.estate.name = estate.name
-        #self.createdAt = datetime.strftime(datetime.now, '%Y-%m-%d %H:%M:%S')
-        #self.updatedAt = None #datetime.strftime(datetime.now, '%Y-%m-%d %H:%M:%S')
+    def create_estate(self, estateslist: List_estates):
+        estates = estateslist
+        # for estate in estateslist:
+        #     self.estate.id = estate.id
+        #     self.estate.code = estate.code
+        #     self.estate.name = estate.name
+        #     self.createdAt = datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')
+        #     self.updatedAt = None #datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')
         
-        
+        #     self.estates.append(estate)

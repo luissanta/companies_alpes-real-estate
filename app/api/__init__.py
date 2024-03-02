@@ -14,7 +14,7 @@ def importar_modelos_alchemy():
     import app.moduls.lists.infrastructure.dto
     
 
-#def comenzar_consumidor():
+def comenzar_consumidor():
     """
     Este es un código de ejemplo. Aunque esto sea funcional puede ser un poco peligroso tener 
     threads corriendo por si solos. Mi sugerencia es en estos casos usar un verdadero manejador
@@ -27,15 +27,15 @@ def importar_modelos_alchemy():
     # import aeroalpes.modulos.pagos.infraestructura.consumidores as pagos
     # import aeroalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
     # import aeroalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
-    # import aeroalpes.modulos.vuelos.infraestructura.consumidores as vuelos
-
+    import app.moduls.lists.infrastructure.consumers as list_consumer
+    import threading
     # Suscripción a eventos
     # threading.Thread(target=cliente.suscribirse_a_eventos).start()
     # threading.Thread(target=hoteles.suscribirse_a_eventos).start()
     # threading.Thread(target=pagos.suscribirse_a_eventos).start()
     # threading.Thread(target=precios_dinamicos.suscribirse_a_eventos).start()
     # threading.Thread(target=vehiculos.suscribirse_a_eventos).start()
-    # threading.Thread(target=vuelos.suscribirse_a_eventos).start()
+    threading.Thread(target=list_consumer.suscribirse_a_eventos).start()
 
     # # Suscripción a comandos
     # threading.Thread(target=cliente.suscribirse_a_comandos).start()
@@ -43,7 +43,7 @@ def importar_modelos_alchemy():
     # threading.Thread(target=pagos.suscribirse_a_comandos).start()
     # threading.Thread(target=precios_dinamicos.suscribirse_a_comandos).start()
     # threading.Thread(target=vehiculos.suscribirse_a_comandos).start()
-    # threading.Thread(target=vuelos.suscribirse_a_comandos).start()
+    threading.Thread(target=list_consumer.suscribirse_a_comandos).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask

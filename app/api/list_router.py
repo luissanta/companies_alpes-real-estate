@@ -39,7 +39,7 @@ def async_create_state():
         map_estate = MapApp()
         estate_dto = map_estate.external_to_dto(estate_dict)
 
-        command = CreateEstate(estate_dto.id, estate_dto.code, estate_dto.name)
+        command = CreateEstate(estate_dto)
         
         # TODO Reemplaze es todo código sincrono y use el broker de eventos para propagar este comando de forma asíncrona
         # Revise la clase Despachador de la capa de infraestructura

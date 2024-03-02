@@ -5,7 +5,7 @@ from app.moduls.lists.infrastructure.dispachers import Despachador
 class HandlerReservaIntegracion(Handler):
 
     @staticmethod
-    def handle_created_es(evento):
+    def handle_reserva_creada(evento):
         despachador = Despachador()
         despachador.publicar_evento(evento, 'eventos-reserva')
 
