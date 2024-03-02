@@ -6,13 +6,13 @@ En este archivo usted encontrará las entidades del dominio de lists
 from __future__ import annotations
 from dataclasses import dataclass, field
 import datetime
+import uuid
 import app.moduls.lists.domain.value_objects as ov
 from app.seedwork.domain.entities import Entity, RootAggregation
 
 
 @dataclass
-class Estate(Entity):
-    id: int = field(default=None)
+class Estate(Entity):    
     code: str = field(default_factory=str)
     name: str = field(default_factory=str)
     createdAt: str = field(default_factory=str)
@@ -20,6 +20,7 @@ class Estate(Entity):
 
 @dataclass
 class List_estates(RootAggregation):
+    id: uuid.UUID = field(hash=True, default=None)
     estates: list[Estate] = field(default_factory=list)
 
     def create_estate(self, estateslist: List_estates):

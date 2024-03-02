@@ -32,7 +32,7 @@ class UnitOfWork(ABC):
         for batch in batches:
             for arg in batch.args:
                 if isinstance(arg, RootAggregation):
-                    return arg.eventos
+                    return arg.events
         return list()
 
     @abstractmethod

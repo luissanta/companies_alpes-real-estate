@@ -9,7 +9,7 @@ from datetime import datetime
 class MapeadorEstateDTOJson(AppMap):
     def _procesar_estate(self, estate: dict) -> EstateDTO:
 
-        estate_dto: EstateDTO = EstateDTO(estate.get('id'), estate.get('code'), estate.get('name')) 
+        estate_dto: EstateDTO = EstateDTO( estate.get('code'), estate.get('name')) 
         return estate_dto
     
     def external_to_dto(self, externo: dict) -> ListDTO:
@@ -17,12 +17,12 @@ class MapeadorEstateDTOJson(AppMap):
         list_dto = ListDTO()
 
         estates: list[EstateDTO] = list()
-        for itin in externo:
+        for itin in externo.get("estates"):
             list_dto.estates.append(self._procesar_estate(itin))
 
         return list_dto
 
-    def dto_to_external(self, dto: EstateDTO) -> dict:
+    def dto_to_external(self, dto: ListDTO) -> dict:
         return dto.__dict__
 
 class MapeadorEstate(RepMap):
@@ -30,8 +30,8 @@ class MapeadorEstate(RepMap):
 
 
     def _procesar_estates(self, estate_dto: EstateDTO) -> Estate:
-        return Estate(estate_dto.id, estate_dto.code, estate_dto.name)
-
+        return Estate(estate_dto.code, estate_dto.name)
+    
     def get_type(self) -> type:
         return Estate.__class__
 
@@ -45,35 +45,12 @@ class MapeadorEstate(RepMap):
         return list_dto
 
     def dto_to_entity(self, dto: ListDTO) -> List_estates:
-        list_estates = List_estates(id=1)
+        list_estates = List_estates()
         list_estates.estates = list()
 
-        estates_map = dto.estates
-        for estat in estates_map:
-            estate_entity = self._procesar_estates(estat)
-            list_estates.estates.append(estate_entity) 
+        estates_dto: list[EstateDTO] = dto.estates
+
+        for itin in estates_dto.estates:
+            list_estates.estates.append(self._procesar_estates(itin))
             
         return list_estates
-    
-
-    # def dto_a_entidad(self, dto: ReservaDTO) -> Reserva:
-    #     reserva = Reserva()
-    #     reserva.itinerarios = list()
-
-    #     itinerarios_dto: list[ItinerarioDTO] = dto.itinerarios
-
-    #     for itin in itinerarios_dto:
-    #         reserva.itinerarios.append(self._procesar_itinerario(itin))
-        
-    #     return reserva
-
-    # def dto_a_entidad(self, dto: ReservaDTO) -> Reserva:
-    #     reserva = Reserva()
-    #     reserva.itinerarios = list()
-
-    #     itinerarios_dto: list[ItinerarioDTO] = dto.itinerarios
-
-    #     for itin in itinerarios_dto:
-    #         reserva.itinerarios.append(self._procesar_itinerario(itin))
-        
-    #     return reserva
