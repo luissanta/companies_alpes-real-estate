@@ -30,7 +30,7 @@ class MapeadorEstate(RepMap):
 
 
     def _procesar_estates(self, estate_dto: EstateDTO) -> Estate:
-        return Estate(estate_dto.code, estate_dto.name)
+        return Estate(code=estate_dto.code, name=estate_dto.name)
     
     def get_type(self) -> type:
         return Estate.__class__

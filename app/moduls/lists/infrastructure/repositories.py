@@ -45,13 +45,6 @@ class EstateRepositoryPostgres(ListRepository):
         # TODO
         listesates_dto = self.estates_factory.create_object(entity, MapeadorEstate())         
         db.session.add(listesates_dto)
-        #estate_dto = db.session.add(List_estatesDTO)
-        #db.commit()        
-        #return estate_list
-
-    #  def agregar(self, reserva: Reserva):
-    #     reserva_dto = self.fabrica_vuelos.crear_objeto(reserva, MapeadorReserva())
-    #     db.session.add(reserva_dto)    
 
     def update(self, entity_id: int, entity: List_estates):
         # TODO

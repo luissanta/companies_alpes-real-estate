@@ -116,14 +116,12 @@ class UnitOfWorkPort:
 
     @staticmethod
     def commit():
-        print('Llegó al commit de infra')
         uow = unit_of_work()
         uow.commit()
         save_unit_of_work(uow)
 
     @staticmethod
     def rollback(savepoint=None):
-        print('Llegó al rollback de infra')
         uow = unit_of_work()
         uow.rollback(savepoint=savepoint)
         save_unit_of_work(uow)
@@ -131,7 +129,6 @@ class UnitOfWorkPort:
     @staticmethod
     def savepoint():
         uow = unit_of_work()
-        print('Llegó al savepoint de infra')
         uow.savepoint()
         save_unit_of_work(uow)
 
