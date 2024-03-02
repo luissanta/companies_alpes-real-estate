@@ -19,7 +19,6 @@ class Estate(Entity):
     #updatedAt: str = field(default_factory=str)
 
     def create_estate(self, estate: Estate):
-        #print('estate: ', estate)
         self.id = estate.id
         self.code = estate.code
         self.name = estate.name

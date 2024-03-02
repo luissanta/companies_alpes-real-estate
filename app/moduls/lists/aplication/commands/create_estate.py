@@ -29,14 +29,10 @@ class CreateEstateHandler(CreateEstateBaseHandler):
         estate_list: Estate = self.list_factories.create_object(estate_dto, MapeadorEstate())
         estate_list.create_estate(estate_list)
         repository = self.repository_factory.create_object(ListRepository.__class__)
-        print('Llegó instancia del repositorio')
 
         UnitOfWorkPort.regist_batch(repository.create, estate_list)
-        print('Registró batch')
         UnitOfWorkPort.savepoint()
-        print('Registró savepoint')
         UnitOfWorkPort.commit()
-        print('Realizó commit')
 
 
 @command.register(CreateEstate)

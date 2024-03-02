@@ -1,7 +1,6 @@
-from app.config.db import SessionLocal
+from app.config.db import db
 from app.seedwork.infrastructure.uow import UnitOfWork, Batch
 
-db = SessionLocal()
 class unitOfWorkSQLAlchemy(UnitOfWork):
 
     def __init__(self):        
@@ -18,7 +17,7 @@ class unitOfWorkSQLAlchemy(UnitOfWork):
 
     @property
     def savepoints(self) -> list:
-        return list[db.get_nested_transaction()]
+        return list[db.session.get_nested_transaction()]
 
     @property
     def batches(self) -> list[Batch]:
@@ -29,7 +28,7 @@ class unitOfWorkSQLAlchemy(UnitOfWork):
             lock = batch.lock
             batch.operation(*batch.args, **batch.kwargs)
 
-        db.commit()
+        db.session.commit()
 
         super().commit()
 
@@ -37,9 +36,9 @@ class unitOfWorkSQLAlchemy(UnitOfWork):
         if savepoint:
             savepoint.rollback()
         else:
-            db.rollback()
+            db.session.rollback()
         
         super().rollback()
     
     def savepoint(self):
-        db.begin_nested()
+        db.session.begin_nested()

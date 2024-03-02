@@ -1,4 +1,9 @@
-fastapi==0.109.2
+#fastapi==0.109.2
+flask
+flask_restful
+flask_cors
+flask_swagger
+flask_sqlalchemy
 uvicorn[standard]
 python-dotenv
 pydantic==2.3.0
@@ -14,5 +19,4 @@ python-jose
 requests
 sqlalchemy-pagination
 alembic== 1.12.0
-fastapi_sessions
 PyDispatcher

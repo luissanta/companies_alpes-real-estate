@@ -2,8 +2,6 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from click import UUID
 
-from fastapi.security import HTTPBasic, HTTPBasicCredentials 
-
 from app.seedwork.domain.entities import RootAggregation
 from pydispatch import dispatcher
 
@@ -79,70 +77,53 @@ class UnitOfWork(ABC):
 
 def is_flask():
     try:
-        #from flask import session
-        #from app.config.session import create_session
+        from flask import session
         return True    
     except Exception as e:
-        #from fastapi import session        
-        #from app.config.session import create_session
-        #await create_session()       
-
         return False
 
 def regist_unit_of_work(serialized_obj):
     from app.config.uow import unitOfWorkSQLAlchemy
-    #from app.config.session import create_session
-    #await create_session()
-    
-    #backend = InMemoryBackend[UUID, SessionData]()
-    #session['uow'] = serialized_obj
+    from flask import session
+    session['uow'] = serialized_obj
 
-#def flask_uow():
-    #from fastapi import session
-    #from app.config.uow import unitOfWorkSQLAlchemy
-    #if session.get('uow'):
-    #    return session['uow']
-    #else:
-    #    uow_serialized = pickle.dumps(unitOfWorkSQLAlchemy())
-    #    regist_unit_of_work(uow_serialized)
-    #    return uow_serialized
-
-def fastapi_uow():
-    #from app.config.session import get_session
+def flask_uow():
+    from flask import session
     from app.config.uow import unitOfWorkSQLAlchemy
-    #if get_session():
-    #    return get_session()
-    #else:
-    uow_serialized = pickle.dumps(unitOfWorkSQLAlchemy())
-    regist_unit_of_work(uow_serialized)
-    return uow_serialized
+    if session.get('uow'):
+       return session['uow']
+    else:
+       uow_serialized = pickle.dumps(unitOfWorkSQLAlchemy())
+       regist_unit_of_work(uow_serialized)
+       return uow_serialized
+
 
 def unit_of_work() -> UnitOfWork:
-    #if is_flask():
-    #    return pickle.loads(flask_uow())
-    #else:
-    return pickle.loads(fastapi_uow())
-        #raise Exception('No hay unidad de trabajo')
+    if is_flask():
+        return pickle.loads(flask_uow())
+    else:
+        raise Exception('No hay unidad de trabajo')
 
 def save_unit_of_work(uow: UnitOfWork):
     regist_unit_of_work(pickle.dumps(uow))
-    # if is_flask():
-    #     regist_unit_of_work(pickle.dumps(uow))
-    # else:
-    #     regist_unit_of_work(pickle.dumps(uow))
-        #raise Exception('No hay unidad de trabajo')
+    if is_flask():
+        regist_unit_of_work(pickle.dumps(uow))
+    else:
+        raise Exception('No hay unidad de trabajo')
 
 
 class UnitOfWorkPort:
 
     @staticmethod
     def commit():
+        print('Llegó al commit de infra')
         uow = unit_of_work()
         uow.commit()
         save_unit_of_work(uow)
 
     @staticmethod
     def rollback(savepoint=None):
+        print('Llegó al rollback de infra')
         uow = unit_of_work()
         uow.rollback(savepoint=savepoint)
         save_unit_of_work(uow)
@@ -150,13 +131,12 @@ class UnitOfWorkPort:
     @staticmethod
     def savepoint():
         uow = unit_of_work()
-
+        print('Llegó al savepoint de infra')
         uow.savepoint()
         save_unit_of_work(uow)
 
     @staticmethod
     def dar_savepoints():
-        print('Llegó al savepoint')
         uow = unit_of_work()
         return uow.savepoints()
 
