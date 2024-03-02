@@ -35,7 +35,7 @@ def async_create_state():
     try:
         estate_dict = request.json
 
-        print("Request.json: ", estate_dict)
+        #print("Request.json: ", estate_dict)
         map_estate = MapApp()
         estate_dto = map_estate.external_to_dto(estate_dict)
 
