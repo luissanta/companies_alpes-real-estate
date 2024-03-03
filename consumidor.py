@@ -4,10 +4,10 @@ from pulsar import ConsumerType, Client, Message
 pulsar_url = "pulsar://localhost:6650"
 
 # Configura el nombre del tema al que deseas suscribirte
-topic_name = "persistent://public/default/tu-topico"
+topic_name = "persistent://public/default/eventos-reserva"
 
 # Configura el nombre de la suscripción
-subscription_name = "mi-suscripcion"
+subscription_name = "aeroalpes-sub-eventos"
 
 # Crea un cliente Pulsar
 client = Client(pulsar_url)

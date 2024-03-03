@@ -71,8 +71,8 @@ class UnitOfWork(ABC):
         pass
 
     def _publish_events_post_commit(self):
-        for event in self._get_events():
-            dispatcher.send(signal=f'{type(event).__name__}Integration', evento=event)
+        for event in self._get_events():           
+            dispatcher.send(signal=f'{type(event).__name__}Integracion', evento=event)
         pass
 
 def is_flask():
