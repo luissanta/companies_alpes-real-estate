@@ -2,10 +2,11 @@ from app.moduls.companies.domain.exceptions import TipoObjetoNoExisteEnDominioCo
 from app.moduls.lists.domain.rules import EstateMinOne
 from app.seedwork.domain.repositories import Mapper
 from app.seedwork.domain.entities import Entity
+
 from .entities import Company
 from dataclasses import dataclass
 from app.seedwork.domain.factories import Factory
-from .entities import Company
+
 
 
 @dataclass
@@ -14,11 +15,11 @@ class _CompanyFactory(Factory):
         if isinstance(obj, Entity):
             return mapper.entity_to_dto(obj)
         else:
-            company: Company = mapper.dto_to_entity(obj)
+            companies: Company = mapper.dto_to_entity(obj)
 
             #self.validate_rule(EstateMinOne(Estate.code))
 
-            return company
+            return companies
 
 
 @dataclass

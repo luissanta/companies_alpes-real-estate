@@ -1,10 +1,10 @@
 
 from app.seedwork.aplication.dto import Mapper as AppMap
 from app.seedwork.domain.repositories import Mapper as RepMap
-from app.moduls.companies.domain.entities import Company,List_Company
+from app.moduls.companies.domain.entities import Company
 from app.moduls.companies.domain.value_objects import  Name, Location, Type
-from .dto import CompanyDTO,ListCompanyDTO
-
+from .dto import CompanyDTO
+import uuid
 from datetime import datetime
 
 class MapeadorCompanyDTOJson(AppMap):
@@ -13,17 +13,17 @@ class MapeadorCompanyDTOJson(AppMap):
         company_dto: CompanyDTO = CompanyDTO(company.get('name'), company.get('location'),company.get('typeCompany'))
         return company_dto
     
-    def external_to_dto(self, externo: dict) -> ListCompanyDTO:
+    def external_to_dto(self, externo: dict) -> CompanyDTO:
+        dto = CompanyDTO(
+            id=str(uuid.uuid4()),
+            name=externo.get("name"),
+            location=externo.get("location"),
+            typeCompany=externo.get("typeCompany")
+        )
 
-        list_dto = ListCompanyDTO()
+        return dto
 
-        companies: list[CompanyDTO] = list()
-        for itin in externo.get("companies"):
-            list_dto.companies.append(self._procesar_estate(itin))
-
-        return list_dto
-
-    def dto_to_external(self, dto: ListCompanyDTO) -> dict:
+    def dto_to_external(self, dto: CompanyDTO) -> dict:
         return dto.__dict__
 
 class MapeadorCompany(RepMap):
@@ -31,27 +31,23 @@ class MapeadorCompany(RepMap):
 
 
     def _procesar_companies(self, company_dto: CompanyDTO) -> Company:
+                
         return Company(name=company_dto.name, location=company_dto.location, typeCompany=company_dto.typeCompany)
     
     def get_type(self) -> type:
         return Company.__class__
 
-    def entity_to_dto(self, list_entidad: List_Company) -> ListCompanyDTO:
-        list_dto = ListCompanyDTO()
+    def entity_to_dto(self, company: Company) -> CompanyDTO:        
 
-        for estates_entity in list_entidad.estates:
-            estate_dto = CompanyDTO(id=estates_entity.id, name=estates_entity.name, code=estates_entity.code)
-            list_dto.estates.append(estate_dto) 
+        company_dto = CompanyDTO(id=str(company.id), name=company.name, location=company.location, typeCompany=company.typeCompany)
 
-        return list_dto
+        return company_dto
 
-    def dto_to_entity(self, dto: ListCompanyDTO) -> List_Company:
-        list_estates = List_Company()
-        list_estates.companies = list()
-
-        estates_dto: list[CompanyDTO] = dto.companies
-
-        for itin in estates_dto.companies:
-            list_estates.companies.append(self._procesar_companies(itin))
-            
-        return list_estates
+    def dto_to_entity(self, dto: CompanyDTO) -> Company:
+        entidad = Company(
+            id=dto.id,
+            name=dto.name,
+            location=dto.location,
+            typeCompany=dto.typeCompany
+        )
+        return entidad

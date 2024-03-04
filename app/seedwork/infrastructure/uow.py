@@ -138,7 +138,7 @@ class UnitOfWorkPort:
         return uow.savepoints()
 
     @staticmethod
-    def regist_batch(operation, *args, lock=Lock.OPTIMISTA, **kwargs):
+    def regist_batch(operation, *args, lock=Lock.PESIMISTA, **kwargs):
         uow = unit_of_work()
         uow.regist_batch(operation, *args, lock=lock, **kwargs)
         save_unit_of_work(uow)

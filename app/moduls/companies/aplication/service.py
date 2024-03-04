@@ -20,6 +20,10 @@ class CompanyService(Service):
         return self._list_factories
 
     def get_all_list(self) -> CompanyDTO:
+        repository = self.repository_factory.create_object(CompanyRepository.__class__)        
+        return self.list_factory.create_object(repository.get_all(), MapeadorCompany())
+    
+    def get_all(self) -> CompanyDTO:
         repository = self.repository_factory.create_object(CompanyRepository.__class__)
         
         return self.list_factory.create_object(repository.get_all(), MapeadorCompany())
