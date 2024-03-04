@@ -6,8 +6,8 @@ import time
 import logging
 import traceback
 
-from app.moduls.lists.infrastructure.schema.v1.events import EventoReservaCreada
-from app.moduls.lists.infrastructure.schema.v1.commands import ComandoCrearReserva
+from app.moduls.companies.infrastructure.schema.v1.events import EventoReservaCreada
+from app.moduls.companies.infrastructure.schema.v1.commands import ComandoCrearReserva
 from app.seedwork.infrastructure import utils
 
 

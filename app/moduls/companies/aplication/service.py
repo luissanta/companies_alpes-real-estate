@@ -1,41 +1,25 @@
-from app.seedwork.aplication.services import Servicio
-from aeroalpes.modulos.vuelos.dominio.entidades import Reserva
-from aeroalpes.modulos.vuelos.dominio.fabricas import FabricaVuelos
-from aeroalpes.modulos.vuelos.infraestructura.fabricas import FabricaRepositorio
-from aeroalpes.modulos.vuelos.infraestructura.repositorios import RepositorioReservas
-from aeroalpes.seedwork.infraestructura.uow import UnidadTrabajoPuerto
-from .mapeadores import MapeadorReserva
+from app.seedwork.aplication.services import Service
+from ..aplication.dto import CompanyDTO
+from app.moduls.companies.domain.factory import CompanyFactory
+from app.moduls.companies.infrastructure.factories import RepositoryFactory
+from ..domain.repositories import CompanyRepository
+from .mappers import MapeadorCompany
 
-from .dto import ReservaDTO
-
-import asyncio
-
-class CompanyService(Servicio):
+class CompanyService(Service):
 
     def __init__(self):
-        self._fabrica_repositorio: FabricaRepositorio = FabricaRepositorio()
-        self._fabrica_vuelos: FabricaVuelos = FabricaVuelos()
+        self._repository_factory: RepositoryFactory = RepositoryFactory()
+        self._list_factories: CompanyRepository = CompanyRepository()
 
     @property
-    def fabrica_repositorio(self):
-        return self._fabrica_repositorio
-    
+    def repository_factory(self):
+        return self._repository_factory
+
     @property
-    def fabrica_vuelos(self):
-        return self._fabrica_vuelos       
-    
-    def crear_reserva(self, reserva_dto: ReservaDTO) -> ReservaDTO:
-        reserva: Reserva = self.fabrica_vuelos.crear_objeto(reserva_dto, MapeadorReserva())
-        reserva.crear_reserva(reserva)
+    def list_factory(self):
+        return self._list_factories
 
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioReservas.__class__)
-
-        UnidadTrabajoPuerto.registrar_batch(repositorio.agregar, reserva)
-        UnidadTrabajoPuerto.savepoint()
-        UnidadTrabajoPuerto.commit()
-
-        return self.fabrica_vuelos.crear_objeto(reserva, MapeadorReserva())
-
-    def obtener_reserva_por_id(self, id) -> ReservaDTO:
-        repositorio = self.fabrica_repositorio.crear_objeto(RepositorioReservas.__class__)
-        return self.fabrica_vuelos.crear_objeto(repositorio.obtener_por_id(id), MapeadorReserva())
+    def get_all_list(self) -> CompanyDTO:
+        repository = self.repository_factory.create_object(CompanyRepository.__class__)
+        
+        return self.list_factory.create_object(repository.get_all(), MapeadorCompany())

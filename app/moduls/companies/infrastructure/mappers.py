@@ -1,9 +1,9 @@
 import uuid
 from app.seedwork.aplication.dto import Mapper as AppMap
 from app.seedwork.domain.repositories import Mapper as RepMap
-from app.moduls.lists.domain.entities import Estate, List_estates
-from app.moduls.lists.domain.value_objects import Code, Name
-from .dto import Company as CompanyDTO
+from app.moduls.companies.domain.entities import Company,List_Company
+from app.moduls.companies.domain.value_objects import  Name,Location,Type
+from .dto import Company as CompanyDTO, List_company as ListCompanyDTO
 
 from datetime import datetime
 
@@ -11,43 +11,42 @@ from datetime import datetime
 class MapeadorCompany(RepMap):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
 
-    def _procesar_estates(self, list_estate: List_estates) -> CompanyDTO:
-        return [CompanyDTO(estate_id=str(item.id), code=item.code, name=item.name) for item in list_estate]
+    def _procesar_companies(self, list_estate: List_Company) -> CompanyDTO:
+        return [CompanyDTO(id=str(item.id), name=item.name, location=item.location, typeCompany=item.typeCompany) for item in list_estate.companies]
 
-    def _procesar_estates_dto(self, list_estate_dto: CompanyDTO) -> Estate:
-        return [Estate(estate_id=str(item.id), code=item.code, name=item.name) for item in list_estate_dto]
+    def _procesar_companies_dto(self, list_estate_dto: ListCompanyDTO) -> Company:
+        return [Company(estate_id=str(item.id), code=item.code, name=item.name) for item in list_estate_dto]
 
     def get_type(self) -> type:
-        return List_estates.__class__
+        return List_Company.__class__
 
-    def entity_to_dto(self, list_entidad: List_estates) -> CompanyDTO:
-        list_dto = CompanyDTO()
-        list_dto.estates = list()
+    def entity_to_dto(self, list_entidad: List_Company) -> ListCompanyDTO:
+        list_dto = ListCompanyDTO()
+        list_dto.companies = list()
 
         if not list_entidad:
             return list_dto
 
         list_dto.id = str(uuid.uuid4())
         list_dto.createdAt = datetime.now()
-        list_dto.updatedAt = datetime.now()
+        # list_dto.updatedAt = datetime.now()
 
-        estates_entity: list[Estate] = list_entidad.estates
+        estates_entity: list[Company] = list_entidad.companies
 
-        list_dto.estates.extend(self._procesar_estates(estates_entity))
+        list_dto.companies.extend(self._procesar_companies(estates_entity))
 
         return list_dto
 
-    def dto_to_entity(self, dto: CompanyDTO) -> List_estates:
-        list_estates = List_estates()
-        list_estates.estates = list()
+    def dto_to_entity(self, dto: ListCompanyDTO) -> List_Company:
+        list_estates = List_Company()
+        list_estates.companies = list()
         if not dto:
             return list_estates
 
-        list_estates.createdAt = datetime.now()
-        list_estates.updatedAt = datetime.now()
+        list_estates.createdAt = datetime.now()    
 
-        estates_dto: list[CompanyDTO] = dto.estates
+        estates_dto: list[CompanyDTO] = dto.companies
 
-        list_estates.estates.extend(self._procesar_estates_dto(estates_dto))
+        list_estates.companies.extend(self._procesar_companies_dto(estates_dto))
 
         return list_estates

@@ -7,11 +7,11 @@ from flask_swagger import swagger
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import app.moduls.lists.aplication
+    import app.moduls.companies.aplication
     #import aeroalpes.modulos.vuelos.aplicacion
 
 def importar_modelos_alchemy():
-    import app.moduls.lists.infrastructure.dto
+    import app.moduls.companies.infrastructure.dto
     
 
 def comenzar_consumidor():
@@ -27,15 +27,18 @@ def comenzar_consumidor():
     # import aeroalpes.modulos.pagos.infraestructura.consumidores as pagos
     # import aeroalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
     # import aeroalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
-    import app.moduls.lists.infrastructure.consumers as list_consumer
-    import threading
+    # import app.moduls.lists.infrastructure.consumers as list_consumer
+    # import threading
+    
+    # import app.moduls.companies.infrastructure.consumers as list_consumer
+    # import threading
     # Suscripción a eventos
     # threading.Thread(target=cliente.suscribirse_a_eventos).start()
     # threading.Thread(target=hoteles.suscribirse_a_eventos).start()
     # threading.Thread(target=pagos.suscribirse_a_eventos).start()
     # threading.Thread(target=precios_dinamicos.suscribirse_a_eventos).start()
     # threading.Thread(target=vehiculos.suscribirse_a_eventos).start()
-    threading.Thread(target=list_consumer.suscribirse_a_eventos).start()
+    # threading.Thread(target=list_consumer.suscribirse_a_eventos).start()
 
     # # Suscripción a comandos
     # threading.Thread(target=cliente.suscribirse_a_comandos).start()
@@ -43,7 +46,7 @@ def comenzar_consumidor():
     # threading.Thread(target=pagos.suscribirse_a_comandos).start()
     # threading.Thread(target=precios_dinamicos.suscribirse_a_comandos).start()
     # threading.Thread(target=vehiculos.suscribirse_a_comandos).start()
-    threading.Thread(target=list_consumer.suscribirse_a_comandos).start()
+    # threading.Thread(target=list_consumer.suscribirse_a_comandos).start()
 
 def create_app(configuracion={}):
     # Init la aplicacion de Flask
@@ -72,7 +75,7 @@ def create_app(configuracion={}):
         comenzar_consumidor()
 
      # Importa Blueprints
-    from . import list_router
+    from . import company_router
     # from . import hoteles
     # from . import pagos
     # from . import precios_dinamicos
@@ -80,7 +83,7 @@ def create_app(configuracion={}):
     # from . import vuelos
 
     # Registro de Blueprints
-    app.register_blueprint(list_router.bp)
+    app.register_blueprint(company_router.bp)
     # app.register_blueprint(hoteles.bp)
     # app.register_blueprint(pagos.bp)
     # app.register_blueprint(precios_dinamicos.bp)

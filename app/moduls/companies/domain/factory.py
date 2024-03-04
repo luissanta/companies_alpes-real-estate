@@ -2,7 +2,7 @@ from app.moduls.companies.domain.exceptions import TipoObjetoNoExisteEnDominioCo
 from app.moduls.lists.domain.rules import EstateMinOne
 from app.seedwork.domain.repositories import Mapper
 from app.seedwork.domain.entities import Entity
-from .entities import Estate, List_estates
+from .entities import Company
 from dataclasses import dataclass
 from app.seedwork.domain.factories import Factory
 from .entities import Company

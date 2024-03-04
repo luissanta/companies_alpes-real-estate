@@ -9,9 +9,9 @@ class Name:
 
 
 @dataclass(frozen=True)
-class location:
+class Location:
     code: str
    
 @dataclass(frozen=True)
-class type:
+class Type:
     code: str    

@@ -1,9 +1,9 @@
 import pulsar
 from pulsar.schema import *
 
-from aeroalpes.modulos.vuelos.infraestructura.schema.v1.eventos import EventoReservaCreada, ReservaCreadaPayload
-from aeroalpes.modulos.vuelos.infraestructura.schema.v1.comandos import ComandoCrearReserva, ComandoCrearReservaPayload
-from aeroalpes.seedwork.infraestructura import utils
+from app.moduls.companies.infrastructure.schema.v1.events import EventoReservaCreada, ReservaCreadaPayload
+from app.moduls.companies.infrastructure.schema.v1.commands import ComandoCrearReserva, ComandoCrearReservaPayload
+from app.seedwork.infrastructure import utils
 
 import datetime
 

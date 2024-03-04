@@ -11,7 +11,6 @@ from app.moduls.lists.domain.events import ReservaCreada
 import app.moduls.lists.domain.value_objects as ov
 from app.seedwork.domain.entities import Entity, RootAggregation
 
-
 @dataclass
 class Estate(Entity):    
     code: str = field(default_factory=str)

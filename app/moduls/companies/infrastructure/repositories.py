@@ -6,14 +6,14 @@ persistir objetos dominio (agregaciones) en la capa de infraestructura del domin
 
 from app.config.db import db
 from app.moduls.lists.domain import factories
-from .dto import Company as CompanyDTO
+from .dto import Company as CompanyDTO, List_company as ListCompanyDTO
 from ..domain.entities import Company
-from ..domain.repositories import ListRepository
+from ..domain.repositories import CompanyRepository
 from ..domain.factory import CompanyFactory
 from ..infrastructure.mappers import MapeadorCompany
 
 
-class EstateRepositoryPostgres(ListRepository):
+class CompanyRepositoryPostgres(CompanyRepository):
 
     def __init__(self):
         self._estates_factory: CompanyFactory = CompanyFactory()
@@ -44,8 +44,7 @@ class EstateRepositoryPostgres(ListRepository):
 
         return estate_list_entity
 
-    def create(self, entity: Company):
-        # TODO
+    def create(self, entity: ListCompanyDTO):      
         listesates_dto = self.estates_factory.create_object(
             entity, MapeadorCompany())
         db.session.add(listesates_dto)

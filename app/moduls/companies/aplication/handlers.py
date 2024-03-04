@@ -1,4 +1,4 @@
-from app.moduls.companies.domain.events import ReservaCreada, ReservaCancelada, ReservaAprobada, ReservaPagada
+# from app.moduls.companies.domain.events import ReservaCreada, ReservaCancelada, ReservaAprobada, ReservaPagada
 from app.seedwork.aplication.handlers import Handler
 from app.moduls.companies.infrastructure.dispachers import Despachador
 

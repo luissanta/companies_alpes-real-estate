@@ -6,7 +6,7 @@ from app.seedwork.domain.events import (DomainEvent)
 @dataclass
 class CreatedCompany(DomainEvent):
     name: str = None
-    ubication: str = None
-    type: str = None
+    location: str = None
+    typeCompany: str = None
 
     
