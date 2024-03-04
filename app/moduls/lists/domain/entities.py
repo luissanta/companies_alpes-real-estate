@@ -7,6 +7,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import datetime
 import uuid
+from app.moduls.lists.domain.events import ReservaCreada
 import app.moduls.lists.domain.value_objects as ov
 from app.seedwork.domain.entities import Entity, RootAggregation
 
@@ -36,3 +37,4 @@ class List_estates(RootAggregation):
         #     self.updatedAt = None #datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')
         
         #     self.estates.append(estate)
+        self.add_events(ReservaCreada(id=1,id_reserva="1", id_cliente="1", estado="funciona", fecha_creacion=datetime.now()))
