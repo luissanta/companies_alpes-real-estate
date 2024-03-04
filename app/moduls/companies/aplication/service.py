@@ -8,8 +8,8 @@ from .mappers import MapeadorCompany
 class CompanyService(Service):
 
     def __init__(self):
-        self._repository_factory: RepositoryFactory = RepositoryFactory()
-        self._list_factories: CompanyRepository = CompanyRepository()
+        self._repository_factory: RepositoryFactory = RepositoryFactory() #CompanyRepository = CompanyRepository()
+        self._list_factories: CompanyFactory = CompanyFactory()
 
     @property
     def repository_factory(self):

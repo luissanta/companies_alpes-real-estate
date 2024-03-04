@@ -40,7 +40,7 @@ class CompanyRepositoryPostgres(CompanyRepository):
             estate_list_entity =[]
             self.companies_factory.create_object(
                 list_estate_dto, MapeadorCompany())
-            [EstateDTO(id=item.id, code=item.code, name=item.name) for item in estate_dto]
+            #[EstateDTO(id=item.id, code=item.code, name=item.name) for item in estate_dto]
         except Exception as e:
             print("Error: ", e)
 
