@@ -23,12 +23,12 @@ def get_list():
     sr = CompanyService()
     return map_estates.dto_to_external(sr.get_all_list())
 
-# @bp.route("/listQuery", methods=('GET',))
-# def get_estate_using_query(id=None):
-#     query_resultado = execute_query(GetEstate(id))
-#     map_estates = MapApp()
+@bp.route("/listQuery", methods=('GET',))
+def get_estate_using_query(id=None):
+    query_resultado = execute_query(GetEstate(id))
+    map_estates = MapApp()
     
-#     return map_estates.dto_to_external(query_resultado.resultado)
+    return map_estates.dto_to_external(query_resultado.resultado)
 
 @bp.route("/company-command", methods=('POST',))
 def async_create_state():
@@ -45,5 +45,4 @@ def async_create_state():
         
         return Response('{}', status=201, mimetype='application/json')
     except DomainException as e:
-        print('eeeeerrorr-----',e)
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

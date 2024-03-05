@@ -24,7 +24,10 @@ class MapeadorCompanyDTOJson(AppMap):
         return dto
 
     def dto_to_external(self, dto: CompanyDTO) -> dict:
-        return dto.__dict__
+        if isinstance(dto, CompanyDTO):
+            return dto.__dict__
+        else:
+            return dto
 
 class MapeadorCompany(RepMap):
     _FORMATO_FECHA = '%Y-%m-%dT%H:%M:%SZ'
@@ -44,10 +47,26 @@ class MapeadorCompany(RepMap):
         return company_dto
 
     def dto_to_entity(self, dto: CompanyDTO) -> Company:
-        entidad = Company(
-            id=dto.id,
-            name=dto.name,
-            location=dto.location,
-            typeCompany=dto.typeCompany
-        )
-        return entidad
+      
+        if type(dto) == list:
+            companies=[]
+            for item in dto:
+                entidad = Company(
+                id=item.id,
+                name=item.name,
+                location=item.location,
+                typeCompany=item.typeCompany
+                )
+                companies.append(entidad)
+                
+            return companies    
+        else:            
+            entidad = Company(
+                id=dto.id,
+                name=dto.name,
+                location=dto.location,
+                typeCompany=dto.typeCompany
+            )
+            return entidad        
+                    
+            

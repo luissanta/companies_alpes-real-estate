@@ -13,8 +13,7 @@ from app.seedwork.domain.rules import IdEntidadEsInmutable
 
 @dataclass
 class Entity:
-    id: uuid.UUID = field(hash=True)
-    _id: uuid.UUID = field(init=False, repr=False, hash=True)
+    id: uuid.UUID = field(hash=True)  
     createdAt: datetime = field(default=datetime.now())
     updatedAt: datetime = field(default=datetime.now())
 

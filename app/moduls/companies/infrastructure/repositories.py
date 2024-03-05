@@ -36,11 +36,10 @@ class CompanyRepositoryPostgres(CompanyRepository):
 
     def get_all(self) -> list[Company]:
         list_estate_dto = db.session.query(CompanyDTO).all()
+        estate_list_entity=[]
         try:
-            estate_list_entity =[]
-            self.companies_factory.create_object(
-                list_estate_dto, MapeadorCompany())
-            #[EstateDTO(id=item.id, code=item.code, name=item.name) for item in estate_dto]
+            estate_list_entity = self.companies_factory.create_object(list_estate_dto, MapeadorCompany())
+            # [Company(id=item.id, name=item.name, location=item.location,typeCompany=item.typeCompany) for item in list_estate_dto]
         except Exception as e:
             print("Error: ", e)
 

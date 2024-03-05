@@ -24,10 +24,24 @@ class MapeadorCompany(RepMap):
         return dto
 
     def dto_to_entity(self, dto):
-        entidad = Company(
-            id=uuid.UUID(dto.id),
-            name=dto.name,
-            location=dto.location,
-            typeCompany=dto.typeCompany
-        )
-        return entidad
+        if isinstance(dto , CompanyDTO):
+            entidad = Company(
+                id=uuid.UUID(dto.id),
+                name=dto.name,
+                location=dto.location,
+                typeCompany=dto.typeCompany
+            )
+            return entidad
+        else:
+            companies=[]
+            for company in dto:
+                entidad = Company(
+                id=uuid.UUID(company.id),
+                name=company.name,
+                location=company.location,
+                typeCompany=company.typeCompany
+                ) 
+                companies.append(entidad) 
+       
+            return companies  
+        
