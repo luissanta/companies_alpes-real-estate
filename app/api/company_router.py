@@ -6,7 +6,6 @@ from flask import Response, Request
 
 
 
-
 from app.moduls.companies.aplication.service import CompanyService
 from app.moduls.companies.aplication.mappers import MapeadorCompanyDTOJson as MapApp
 from app.moduls.companies.aplication.commands.create_company import CreateCompany
@@ -23,12 +22,21 @@ def get_list():
     sr = CompanyService()
     return map_estates.dto_to_external(sr.get_all_list())
 
+<<<<<<< HEAD
 # @bp.route("/listQuery", methods=('GET',))
 # def get_estate_using_query(id=None):
 #     query_resultado = execute_query(GetEstate(id))
 #     map_estates = MapApp()
     
 #     return map_estates.dto_to_external(query_resultado.resultado)
+=======
+@bp.route("/listQuery", methods=('GET',))
+def get_estate_using_query(id=None):
+    query_resultado = execute_query(GetEstate(id))
+    map_estates = MapApp()
+    
+    return map_estates.dto_to_external(query_resultado.resultado)
+>>>>>>> ed6d15188cba61a5403cfcbc919aea10ed56840d
 
 @bp.route("/company-command", methods=('POST',))
 def async_create_state():

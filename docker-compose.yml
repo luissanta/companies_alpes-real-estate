@@ -1,22 +1,11 @@
-<<<<<<< Updated upstream
-version: '3.8'
-
-services:
-  app:
-    build: .
-    container_name: alpes-real-estate
-    restart: unless-stopped
-    ports:
-      - '80:80'
-=======
 version: '3'
 networks:
   pulsar:
     driver: bridge
   sidecar:
     driver: bridge
-
 services:
+# Start zookeeper
   zookeeper:
     image: apachepulsar/pulsar:latest
     profiles: ["pulsar"]
@@ -38,7 +27,7 @@ services:
       timeout: 5s
       retries: 30
 
-
+# Init cluster metadata
   pulsar-init:
     container_name: pulsar-init
     hostname: pulsar-init
@@ -57,7 +46,7 @@ services:
       zookeeper:
         condition: service_healthy
 
-
+# Start bookie
   bookie:
     image: apachepulsar/pulsar:latest
     profiles: ["pulsar"]
@@ -74,11 +63,13 @@ services:
         condition: service_healthy
       pulsar-init:
         condition: service_completed_successfully
+  # Map the local directory to the container to avoid bookie startup failure due to insufficient container disks.
     volumes:
       - ./data/bookkeeper:/pulsar/data/bookkeeper
     command: bash -c "bin/apply-config-from-env.py conf/bookkeeper.conf
       && exec bin/pulsar bookie"
 
+# Start broker
   broker:
     image: apachepulsar/pulsar:latest
     profiles: ["pulsar"]
@@ -107,6 +98,7 @@ services:
     command: bash -c "bin/apply-config-from-env.py conf/broker.conf
       &&  exec bin/pulsar broker"
   
+  # Servicios de AeroAlpes
   aeroalpes:
     container_name: aeroalpes
     hostname: aeroalpes
@@ -139,6 +131,7 @@ services:
     ports:
       - "50051:50051"
   
+  # Servicios de Notificación
   notificacion:
     container_name: notificacion
     hostname: notificacion
@@ -152,7 +145,7 @@ services:
       - PULSAR_ADDRESS=broker
     networks:
       - pulsar
-
+  # Servicio UI
   ui:
     container_name: ui
     hostname: ui
@@ -168,4 +161,3 @@ services:
       - pulsar
     ports:
       - "5678:5678"
->>>>>>> Stashed changes

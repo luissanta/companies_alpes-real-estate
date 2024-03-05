@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-from .auth_router import auth_router
-from .health_check_router import health_check_router
-=======
 import os
-
 from flask import Flask, render_template, request, url_for, redirect, jsonify, session
 from flask_swagger import swagger
 
@@ -128,4 +123,3 @@ def create_app(configuracion={}):
 # #app_test = app
 
 
->>>>>>> Stashed changes
