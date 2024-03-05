@@ -8,7 +8,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 import uuid
 from app.moduls .companies.domain.events import CreatedCompany
-import app.moduls.lists.domain.value_objects as ov
 from app.seedwork.domain.entities import Entity, RootAggregation
 
 

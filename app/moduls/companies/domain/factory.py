@@ -1,5 +1,4 @@
 from app.moduls.companies.domain.exceptions import TipoObjetoNoExisteEnDominioCompanyExcepcion
-from app.moduls.lists.domain.rules import EstateMinOne
 from app.seedwork.domain.repositories import Mapper
 from app.seedwork.domain.entities import Entity
 
