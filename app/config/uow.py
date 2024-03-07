@@ -26,7 +26,8 @@ class unitOfWorkSQLAlchemy(UnitOfWork):
     def commit(self):
         for batch in self.batches:
             lock = batch.lock
-            batch.operation(*batch.args, **batch.kwargs)
+            if batch.operation is not None and callable(batch.operation):
+                batch.operation(*batch.args, **batch.kwargs)
 
         db.session.commit()
 

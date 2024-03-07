@@ -9,6 +9,7 @@ from flask import Response, Request
 from app.moduls.companies.aplication.service import CompanyService
 from app.moduls.companies.aplication.mappers import MapeadorCompanyDTOJson as MapApp
 from app.moduls.companies.aplication.commands.create_company import CreateCompany
+from app.moduls.companies.aplication.commands.delete_company import DeleteCompany
 from app.seedwork.domain.exceptions import DomainException
 from app.moduls.companies.aplication.service import CompanyService
 from app.seedwork.aplication.commands import execute_command
@@ -43,5 +44,15 @@ def async_create_state():
         execute_command(command)
         
         return Response('{}', status=201, mimetype='application/json')
+    except DomainException as e:
+        return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
+    
+@bp.route("/company-command/<uuid:id>", methods=['DELETE'])
+def delete_item(id):
+    try:
+        command = DeleteCompany(id)       
+        execute_command(command)
+        
+        return Response('{}', status=204, mimetype='application/json')
     except DomainException as e:
         return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')

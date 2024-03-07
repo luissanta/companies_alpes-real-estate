@@ -24,4 +24,5 @@ class Company(RootAggregation):
         company = company
         # self.add_events(CreatedCompany(id=self.id, name=self.name, location=self.location, typeCompany=self.typeCompany))
 
-
+    def delete_company(self,id:any):
+        id=id

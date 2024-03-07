@@ -1,16 +1,12 @@
-""" Repositorios para el manejo de persistencia de objetos de dominio en la capa de infrastructura del dominio de vuelos
-
-En este archivo usted encontrará las diferentes repositorios para
-persistir objetos dominio (agregaciones) en la capa de infraestructura del dominio de lists
-"""
-
 from app.config.db import db
 from .dto import Company as CompanyDTO
 from ..domain.entities import Company
+
 from ..domain.repositories import CompanyRepository
 from ..domain.factory import CompanyFactory
 from ..infrastructure.mappers import MapeadorCompany
-
+from flask import Response, Request
+import json
 
 class CompanyRepositoryPostgres(CompanyRepository):
 
@@ -54,6 +50,19 @@ class CompanyRepositoryPostgres(CompanyRepository):
         # TODO
         raise NotImplementedError
 
-    def delete(self, entity_id: int):
-        # TODO
-        raise NotImplementedError
+    def delete(self, entity_id: int):       
+        try:       
+           
+            item = db.session.query(CompanyDTO).filter_by(id=str(entity_id)).first()
+            estate_list_entity = self.companies_factory.create_object(item, MapeadorCompany())
+            if item:   
+                     
+                db.session.delete(item)
+                db.session.commit()
+                           
+            else:    
+                return Response(json.dumps(dict(error='Item not found')), status=404, mimetype='application/json')
+        except Exception as e:    
+            # db.session.rollback()
+            print(str(e))
+            # return Response(json.dumps(dict(error=str(e))), status=400, mimetype='application/json')
