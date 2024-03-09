@@ -8,3 +8,9 @@ class ComandoCrearReservaPayload(ComandoIntegracion):
 
 class ComandoCrearReserva(ComandoIntegracion):
     data = ComandoCrearReservaPayload()
+
+class CommandResponseCreateCompanyJson(Record):
+    data = String()
+
+class CommandResponseRollbackCreateCompanyJson(Record):
+    data = String()

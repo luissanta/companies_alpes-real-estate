@@ -7,8 +7,7 @@ from config import Setting
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 def registrar_handlers():
-    import app.moduls.companies.aplication
-    #import aeroalpes.modulos.vuelos.aplicacion
+    pass
 
 def importar_modelos_alchemy():
     import app.moduls.companies.infrastructure.dto
@@ -21,20 +20,16 @@ def comenzar_consumidor():
     de procesos y threads como Celery.
     """
 
-    #import threading
-    # import app.moduls.lists.infrastructure.co as cliente
-    # import aeroalpes.modulos.hoteles.infraestructura.consumidores as hoteles
-    # import aeroalpes.modulos.pagos.infraestructura.consumidores as pagos
-    # import aeroalpes.modulos.precios_dinamicos.infraestructura.consumidores as precios_dinamicos
-    # import aeroalpes.modulos.vehiculos.infraestructura.consumidores as vehiculos
+
     import app.moduls.companies.infrastructure.consumers as list_consumer   
     import threading
 
 # Suscripción a eventos
-    threading.Thread(target=list_consumer.suscribirse_a_eventos).start()
+
 
 # Suscripción a comandos
     threading.Thread(target=list_consumer.suscribirse_a_comandos).start()
+    threading.Thread(target=list_consumer.suscribirse_a_comandos_delete).start()
     
     
 def create_app(configuracion={}):
@@ -64,19 +59,8 @@ def create_app(configuracion={}):
 
      # Importa Blueprints
     from . import company_router
-    # from . import hoteles
-    # from . import pagos
-    # from . import precios_dinamicos
-    # from . import vehiculos
-    # from . import vuelos
 
-    # Registro de Blueprints
     app.register_blueprint(company_router.bp)
-    # app.register_blueprint(hoteles.bp)
-    # app.register_blueprint(pagos.bp)
-    # app.register_blueprint(precios_dinamicos.bp)
-    # app.register_blueprint(vehiculos.bp)
-    # app.register_blueprint(vuelos.bp)
 
     @app.route("/spec")
     def spec():
@@ -90,36 +74,3 @@ def create_app(configuracion={}):
         return {"status": "up"}
 
     return app
-
-
-# from .health_check_router import health_check_router
-# from .list_router import list_router
-
-# from flask import Flask 
-# from app.seedwork.presentation import apiflask
-# from flask_cors import CORS
-# from config import settings
-# import logging
-
-
-# #app = create_app('default')
-# app = Flask(__name__)
-# app_context = app.app_context()
-# app_context.push()
-# app.title = settings.PROJECT_NAME
-# app.version = settings.PROJECT_VERSION
-
-# cors = CORS(app)
-
-# logging.basicConfig(level=logging.ERROR, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-# logger = logging.getLogger(__name__)
-
-# # Importa Blueprints
-# from . import list_router
-
-# # Registro de Blueprints
-# app.register_blueprint(list_router.bp)
-
-# #app_test = app
-
-
