@@ -23,7 +23,7 @@ class DeleteCompanyHandler(CreateCompanyBaseHandler):
         # company.delete_company(company.id)
         repository = self.repository_factory.create_object(CompanyRepository.__class__)
 
-        UnitOfWorkPort.regist_batch(repository.delete(company_id))
+        UnitOfWorkPort.regist_batch(repository.delete(command.id))
         UnitOfWorkPort.savepoint()
         # UnitOfWorkPort.commit()
 

@@ -23,7 +23,7 @@ class Company(RootAggregation):
 
     def create_company(self, company: Company):
         company = company
-        self.add_events(CommandResponseCreateCompanyJson(data=self.id))
+        #self.add_events(CommandResponseCreateCompanyJson(data=self.id))
 
     def delete_company(self,id:any):
         id=id

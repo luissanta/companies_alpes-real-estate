@@ -3,7 +3,7 @@ import pulsar
 from pulsar.schema import *
 
 
-from app.moduls.companies.infrastructure.schema.v1.commands import ComandoCrearReserva, ComandoCrearReservaPayload
+from app.moduls.companies.infrastructure.schema.v1.commands import ComandoCrearReserva, ComandoCrearReservaPayload, CommandResponseCreateCompanyJson, CommandResponseRollbackCreateCompanyJson
 from app.seedwork.infrastructure import utils
 
 import datetime
@@ -32,4 +32,16 @@ class Despachador:
         publicador = cliente.create_producer(topico)
         serialized_data = json.dumps(comando.data).encode('utf-8')       
         publicador.send(serialized_data)
+        publicador.close()
+
+    def publicar_comando_respuesta(self, comando, topico):
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        publicador = cliente.create_producer(topico, schema=AvroSchema(CommandResponseCreateCompanyJson)  )  
+        publicador.send(comando)
+        publicador.close()
+
+    def publicar_comando_rollback(self, comando, topico):
+        cliente = pulsar.Client(f'pulsar://{utils.broker_host()}:6650')
+        publicador = cliente.create_producer(topico, schema=AvroSchema(CommandResponseRollbackCreateCompanyJson))     
+        publicador.send(comando)
         publicador.close()

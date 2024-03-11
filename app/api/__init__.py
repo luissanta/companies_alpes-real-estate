@@ -13,7 +13,7 @@ def importar_modelos_alchemy():
     import app.moduls.companies.infrastructure.dto
     
 
-def comenzar_consumidor():
+def comenzar_consumidor(app):
     """
     Este es un código de ejemplo. Aunque esto sea funcional puede ser un poco peligroso tener 
     threads corriendo por si solos. Mi sugerencia es en estos casos usar un verdadero manejador
@@ -28,8 +28,8 @@ def comenzar_consumidor():
 
 
 # Suscripción a comandos
-    threading.Thread(target=list_consumer.suscribirse_a_comandos).start()
-    threading.Thread(target=list_consumer.suscribirse_a_comandos_delete).start()
+    threading.Thread(target=list_consumer.suscribirse_a_comandos, args=[app]).start()
+    threading.Thread(target=list_consumer.suscribirse_a_comandos_delete, args=[app]).start()
     
     
 def create_app(configuracion={}):
@@ -55,7 +55,7 @@ def create_app(configuracion={}):
     with app.app_context():
         db.create_all()
         #if not app.config.get('TESTING'):
-        comenzar_consumidor()
+        comenzar_consumidor(app)
 
      # Importa Blueprints
     from . import company_router
