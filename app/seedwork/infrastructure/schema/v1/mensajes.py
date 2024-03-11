@@ -12,5 +12,7 @@ class Mensaje(Record):
     datacontenttype = String()
     service_name = String()
 
+    def __init__(self, *args, id=None, **kwargs):
+        super().__init__(*args, id=id, **kwargs)
 
     

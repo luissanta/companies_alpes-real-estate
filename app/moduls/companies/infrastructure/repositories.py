@@ -53,8 +53,11 @@ class CompanyRepositoryPostgres(CompanyRepository):
     def delete(self, entity_id: int):       
         try:       
            
-            item = db.session.query(CompanyDTO).filter_by(id=str(entity_id)).first()
-            estate_list_entity = self.companies_factory.create_object(item, MapeadorCompany())
+            item = None
+            if(entity_id == -1):
+                item = db.session.query(CompanyDTO).order_by(CompanyDTO.id.desc()).first()
+            else:
+                item = db.session.query(CompanyDTO).filter_by(id=str(entity_id)).first()
             if item:   
                      
                 db.session.delete(item)
