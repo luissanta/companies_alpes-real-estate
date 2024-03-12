@@ -49,3 +49,6 @@ This is automatically generated and can be accessed via `http://0.0.0.0:8008/doc
 2. `python main.py` notificador se debe entrar a app/notificaciones/
 3. `python consumidor.py` consume el evento
 4. `python .\test.py` publica el evento
+
+## GitPod 
+1. `docker-compose up`
